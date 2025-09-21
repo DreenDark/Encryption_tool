@@ -10,5 +10,5 @@ A simple program to encrypt and decrypt the given text with a provided password.
 ## Usage
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/DreenDark/Encryption_tool.git
+   cd Encryption_tool
