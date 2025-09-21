@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void Encryption(char text[],const char password[],size_t password_len);
+void Decryption(char text[],const char password[],size_t password_len);
+char *read_line();
+int main(){
+    int M=-1;
+    char *password,*text;
+    printf("Simple encryption tool\n");
+    printf("What do you want:\n1-Encryption\t2-Decryption\n");
+    while(M!=0){
+   if(scanf("%d",&M)!=1){
+        printf("invalid input,existing ... \n");
+        break;
+    }
+    getchar();
+    if (M==1){
+        printf("For encryption first enter your chosen password then the text\n");
+        printf("Password:");
+        password=read_line();
+         size_t password_len=strlen(password);
+        printf("Text:");
+        text=read_line();
+        printf("%s\n",text);
+        printf("%s\n",password);  
+        Encryption(text,password,password_len);
+        free(text);
+        free(password);}
+    else if (M==2){
+                printf("For decryption first enter the password you have then the text\n");
+                printf("Password:");
+                password=read_line();
+                size_t password_len=strlen(password);
+                printf("Text:");
+                text=read_line();
+                printf("%s\n",text);
+                printf("%s\n",password);
+                Decryption(text,password,password_len);
+                free(text);
+                free(password); }
+    else {
+        printf("For exiting enter 0\n");
+    }}
+}
+void Encryption(char *text,const char *password,size_t password_len){
+    int i=0;
+    char *out_put_text=malloc(strlen(text)+1);
+    if(!out_put_text)return;
+    while( text[i]!='\0'){
+       out_put_text[i]=text[i]^password[i%password_len];
+       i++; 
+    }
+    out_put_text[i]='\0';
+    printf("%s\n",out_put_text);
+    printf("\n");
+    free(out_put_text);
+}
+void Decryption(char *text,const char *password,size_t password_len){
+    int i=0;
+    char *out_put_text=malloc(strlen(text)+1);
+    if(!out_put_text)return;
+    while(text[i]!='\0'){
+       out_put_text[i]=text[i]^password[i% password_len];
+       i++; 
+    }
+    out_put_text[i]='\0';
+    printf("%s\n",out_put_text);
+    printf("\n");
+    free(out_put_text);
+}
+char *read_line(){
+    char *Buffer=NULL;
+    int c;
+    size_t size=0;
+    while((c=getchar())!='\n'&&c!=EOF){
+        char *new_buffer=realloc(Buffer,size+2);
+        if(!new_buffer){
+            free(Buffer);
+            return NULL;
+        }
+        Buffer=new_buffer;
+        Buffer[size++]=c;
+        Buffer[size]='\0';
+
+    }
+    return Buffer;
+}
+    
